@@ -31,7 +31,6 @@ public class TestPlacer : MonoBehaviour
             if (grid_manager.canPlaceAt(entry.position, placable))
             {
                 Vector3 world_pos = grid_manager.flatToWorld(entry.position);
-                world_pos += new Vector3(placable.pivot_offset.x * grid_manager.cell_size, 0f, placable.pivot_offset.y * grid_manager.cell_size);
                 instance.transform.position = world_pos;
                 grid_manager.placeObject(entry.position, placable);
                 Debug.Log("Placed object at " + entry.position);

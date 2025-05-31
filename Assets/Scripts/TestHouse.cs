@@ -6,6 +6,4 @@ public class TestHouse : MonoBehaviour, IPlacable
     {
         new Vector2Int(0, 0)
     };
-
-    public Vector2 pivot_offset => new Vector2(0, -.5f);
 }
