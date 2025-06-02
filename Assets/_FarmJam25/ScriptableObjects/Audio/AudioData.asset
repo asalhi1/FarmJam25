@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38b135ed1ef2af4f9d6bf2b85317b93, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  <Mus_IdleNight>k__BackingField:
+    Guid:
+      Data1: -503044111
+      Data2: 1340353314
+      Data3: -848156506
+      Data4: 748613354
+    Path: event:/Music/MusIdleNight
+  <Mus_CombatDay>k__BackingField:
+    Guid:
+      Data1: 1133592181
+      Data2: 1221425410
+      Data3: 1813122490
+      Data4: 1094510823
+    Path: event:/Music/MusCombatDay
+  <Mus_MenuTheme>k__BackingField:
+    Guid:
+      Data1: 2137791779
+      Data2: 1312879020
+      Data3: 95809948
+      Data4: -1245265052
+    Path: event:/Music/MusMenuTheme
