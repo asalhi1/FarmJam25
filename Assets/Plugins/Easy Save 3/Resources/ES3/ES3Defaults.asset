@@ -40,6 +40,8 @@ MonoBehaviour:
     - Febucci.Attributes.Runtime
     - Febucci.TextAnimator.Runtime
     - Febucci.TextAnimator.TMP.Runtime
+    - FMODUnity
+    - FMODUnityResonance
     - KBCore.Refs
     - QFSW.QC
     - QFSW.QC.Extras
