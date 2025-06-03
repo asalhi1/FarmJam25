@@ -1,49 +1,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+namespace NJG.Runtime.Placement
 {
-    public int cell_size = 1;
-    private Dictionary<Vector2Int, IPlacable> grid_data = new();
-
-    public bool canPlaceAt(Vector2Int origin, IPlacable obj)
+    public class GridManager : MonoBehaviour
     {
-        foreach (var cell in obj.occupied_cells)
+        public int cell_size = 1;
+        
+        private Dictionary<Vector2Int, IGridObject> grid_data = new();
+        
+        public bool CanPlaceAt(Vector2Int desiredCellIndex, IGridObject obj)
         {
-            Vector2Int world_cell = origin + cell;
-            if (grid_data.ContainsKey(world_cell)) return false;
+            foreach (var cell in obj.CellPositions)
+            {
+                Vector2Int world_cell = desiredCellIndex + cell;
+                if (grid_data.ContainsKey(world_cell)) 
+                    return false;
+            }
+            return true;
         }
 
-        return true;
-    }
-
-    public void placeObject(Vector2Int origin, IPlacable obj)
-    {
-        foreach (var cell in obj.occupied_cells)
+        public bool TryPlaceObject(Vector2Int desiredCellIndex, IGridObject obj)
         {
-            grid_data[origin + cell] = obj;
-        }
-    }
+            if(!CanPlaceAt(desiredCellIndex, obj))
+                return false;
+            
+            foreach (var cell in obj.CellPositions)
+                grid_data[desiredCellIndex + cell] = obj;
 
-    public void removeObject(Vector2Int origin)
-    {
-        if (!grid_data.TryGetValue(origin, out IPlacable obj))
-        {
-            Debug.Log($"Can't remove object at {origin}");
-            return;
+            obj.PlaceOnMap(desiredCellIndex, GetCellPosition(desiredCellIndex));
+            
+            return true;
         }
 
-        foreach (var cell in obj.occupied_cells)
+        public bool IsAtPlace(IGridObject obj)
         {
-            grid_data.Remove(origin + cell);
+            if(!grid_data.ContainsKey(obj.GridIndex + obj.CellPositions[0]))
+                return false;
+            return grid_data[obj.GridIndex + obj.CellPositions[0]] == obj;
         }
 
-        MonoBehaviour mb = obj as MonoBehaviour;
-        Destroy(mb.gameObject);
-    }
+        public void RemoveObject(IGridObject obj)
+        {
+            if (!IsAtPlace(obj))
+            {
+                Debug.LogWarning("Object is not in grid");
+                return;
+            }
 
-    public Vector3 flatToWorld(Vector2Int flat_pos)
-    {
-        return new Vector3(flat_pos.x * cell_size, 0f, flat_pos.y * cell_size);
+            foreach (var cell in obj.CellPositions)
+                grid_data.Remove(obj.GridIndex + cell);
+        }
+        
+        public Vector3 GetCellPosition(Vector2Int cellIndex)
+        {
+            return new Vector3(cellIndex.x * cell_size, 0f, cellIndex.y * cell_size);
+        }
+
+        public Vector2Int GetCellIndexFromPosition(Vector3 worldPosition)
+        {
+            int x = Mathf.FloorToInt((worldPosition.x + cell_size * 0.5f) / cell_size);
+            int y = Mathf.FloorToInt((worldPosition.z + cell_size * 0.5f) / cell_size); 
+            return new Vector2Int(x, y);
+        }
     }
 }
