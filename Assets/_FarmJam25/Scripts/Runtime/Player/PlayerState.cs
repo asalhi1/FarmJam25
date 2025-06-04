@@ -5,52 +5,48 @@ using UnityEngine;
 namespace NGJ.Runtime.Player
 {
     // Get, Modify and Set functions for Cabin Health, Cabin Max Health, and each of the Resources
-    public class PlayerState : MonoBehaviour
+    public class PlayerState
     { 
-        [SerializeField]
-        private int cabinHealth; // cabin health does not use the resource system because it has an upper bounds: maxHealth
-        [SerializeField]
-        private int cabinMaxHealth;
-        [SerializeField]
+        private int _cabinHealth; // cabin health does not use the resource system because it has an upper bounds: maxHealth
+        private int _cabinMaxHealth;
         private Dictionary<EResource, int> _resource;
-        [SerializeField]
         private Dictionary<Vector2Int, Placement.IPlacable> _gridInformation;
 
-        PlayerState()
+        public PlayerState()
         {
-            cabinHealth = cabinMaxHealth;
+            _cabinHealth = _cabinMaxHealth;
             
         }
         /* ---- CABIN ---- */
 
-        public int GetCabinMaxHealth() { return cabinMaxHealth; } // using this over a property because it's more flexible and more intuitive
+        public int GetCabinMaxHealth() { return _cabinMaxHealth; } // using this over a property because it's more flexible and more intuitive
 
         public void ModifyCabinMaxHealth(int deltaMaxHealth)
         {
-            SetCabinMaxHealth(cabinMaxHealth + deltaMaxHealth);
+            SetCabinMaxHealth(_cabinMaxHealth + deltaMaxHealth);
         }
         
         public void SetCabinMaxHealth(int newMaxHealth)
         {
-            cabinMaxHealth = Math.Max(0, newMaxHealth);
-            cabinHealth = Math.Clamp(cabinHealth, 0, cabinMaxHealth);
+            _cabinMaxHealth = Math.Max(0, newMaxHealth);
+            _cabinHealth = Math.Clamp(_cabinHealth, 0, _cabinMaxHealth);
         }
         
-        public int GetCabinHealth() { return cabinHealth; }
+        public int GetCabinHealth() { return _cabinHealth; }
 
         // Used to modify cabin's health (positive is healing, negative is damage). If raised above the max health, the max health will automatically adjust
         public void ModifyCabinHealth(int deltaHealth)
         {
-            SetCabinHealth(cabinHealth + deltaHealth);
+            SetCabinHealth(_cabinHealth + deltaHealth);
         }
 
         // Used to set cabin's health directly. If raised above the max health, the max health will automatically adjust
         public void SetCabinHealth(int newCabinHealth)
         {
-            cabinHealth = Math.Max(newCabinHealth, 0);
-            if (cabinHealth > cabinMaxHealth)
+            _cabinHealth = Math.Max(newCabinHealth, 0);
+            if (_cabinHealth > _cabinMaxHealth)
             {
-                cabinMaxHealth = cabinHealth;
+                _cabinMaxHealth = _cabinHealth;
             }
         }
         
