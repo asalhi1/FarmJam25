@@ -1,95 +1,79 @@
 using System;
 using System.Collections.Generic;
-using NJG.Utilities.EventBus;
-using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-
-namespace _FarmJam25.Scripts
+namespace NGJ.Runtime.Player
 {
-    public enum ResourceType
-    {
-        None = 0,
-        Detritus = 1,
-        Supports = 2,
-        Vitality = 3
-    }
-    
-    // Get, Modify and Set functions for Cabin Health, Cabin Max Health, and each of the ResourceTypes
-    public class PlayerState : MonoBehaviour
+    // Get, Modify and Set functions for Cabin Health, Cabin Max Health, and each of the Resources
+    public class PlayerState
     { 
-        [SerializeField]
-        private int cabinHealth; // cabin health does not use the resource system because it has an upper bounds: maxHealth
-        [SerializeField]
-        private int cabinMaxHealth;
-        [SerializeField]
-        private Dictionary<ResourceType, int> _resource;
-        [SerializeField]
-        private Dictionary<Vector2Int, IPlacable> _gridInformation;
+        private int _cabinHealth; // cabin health does not use the resource system because it has an upper bounds: maxHealth
+        private int _cabinMaxHealth;
+        private Dictionary<EResource, int> _resource;
+        private Dictionary<Vector2Int, Placement.IPlacable> _gridInformation;
 
-        PlayerState()
+        public PlayerState()
         {
-            cabinHealth = cabinMaxHealth;
+            _cabinHealth = _cabinMaxHealth;
             
         }
         /* ---- CABIN ---- */
 
-        public int GetCabinMaxHealth() { return cabinMaxHealth; } // using this over a property because it's more flexible and more intuitive
+        public int GetCabinMaxHealth() { return _cabinMaxHealth; } // using this over a property because it's more flexible and more intuitive
 
         public void ModifyCabinMaxHealth(int deltaMaxHealth)
         {
-            SetCabinMaxHealth(cabinMaxHealth + deltaMaxHealth);
+            SetCabinMaxHealth(_cabinMaxHealth + deltaMaxHealth);
         }
         
         public void SetCabinMaxHealth(int newMaxHealth)
         {
-            cabinMaxHealth = Math.Max(0, newMaxHealth);
-            cabinHealth = Math.Clamp(cabinHealth, 0, cabinMaxHealth);
+            _cabinMaxHealth = Math.Max(0, newMaxHealth);
+            _cabinHealth = Math.Clamp(_cabinHealth, 0, _cabinMaxHealth);
         }
         
-        public int GetCabinHealth() { return cabinHealth; }
+        public int GetCabinHealth() { return _cabinHealth; }
 
         // Used to modify cabin's health (positive is healing, negative is damage). If raised above the max health, the max health will automatically adjust
         public void ModifyCabinHealth(int deltaHealth)
         {
-            SetCabinHealth(cabinHealth + deltaHealth);
+            SetCabinHealth(_cabinHealth + deltaHealth);
         }
 
         // Used to set cabin's health directly. If raised above the max health, the max health will automatically adjust
         public void SetCabinHealth(int newCabinHealth)
         {
-            cabinHealth = Math.Max(newCabinHealth, 0);
-            if (cabinHealth > cabinMaxHealth)
+            _cabinHealth = Math.Max(newCabinHealth, 0);
+            if (_cabinHealth > _cabinMaxHealth)
             {
-                cabinMaxHealth = cabinHealth;
+                _cabinMaxHealth = _cabinHealth;
             }
         }
         
         /* ---- RESOURCES ---- */
         
-        public int GetResource(ResourceType type)
+        public int GetResource(EResource type)
         {
-            if (type == ResourceType.None)
+            if (type == EResource.None)
             {
-                Debug.LogError($"Resource Type Null is an invalid type for PlayerState GetResource.");
+                Debug.LogError($"Resource Type None is an invalid type for PlayerState GetResource.");
                 return -1;
             }
             return _resource.GetValueOrDefault(type, 0);
         }
 
         // Modifies resources with error checking. Returns remaining amount of resource.
-        public int ModifyResource(ResourceType type, int delta)
+        public int ModifyResource(EResource type, int delta)
         {
-            if (type == ResourceType.None)
+            if (type == EResource.None)
             {
-                Debug.LogError($"Attempted Resource Type Null to modify by {delta}.");
+                Debug.LogError($"Attempted Resource None to modify by {delta}.");
                 return -1;
             }
             int resourceAmount = _resource.GetValueOrDefault(type, 0);
             if (resourceAmount + delta < 0)
             {
-                Debug.LogWarning($"Attempted to modify Resource Type {Enum.GetName(typeof(ResourceType), type)} by {delta} to {resourceAmount - delta} (less than zero). Ignoring.");
+                Debug.LogWarning($"Attempted to modify Resource {Enum.GetName(typeof(EResource), type)} by {delta} to {resourceAmount - delta} (less than zero). Ignoring.");
                 return resourceAmount;
             }
 
@@ -98,7 +82,7 @@ namespace _FarmJam25.Scripts
         }
 
         // Assumes the costs to be positive (1 vitality, 3 detritus)
-        public bool QueryPurchase(Dictionary<ResourceType, int> purchase, bool purchaseIfAble)
+        public bool QueryPurchase(Dictionary<EResource, int> purchase, bool purchaseIfAble)
         {
             foreach (var resourceCost in purchase)
             {
@@ -119,11 +103,11 @@ namespace _FarmJam25.Scripts
             return true;
         }
         
-        public void SetResource(ResourceType type, int amount)
+        public void SetResource(EResource type, int amount)
         {
-            if (type == ResourceType.None)
+            if (type == EResource.None)
             {
-                Debug.LogError($"Attempted to set Resource Type Null to {amount}. Type Null cannot be set");
+                Debug.LogError($"Attempted to set Resource Type None to {amount}. Type None cannot be set");
                 return;
             }
 
@@ -139,12 +123,12 @@ namespace _FarmJam25.Scripts
 
         /* ---- GRID INFO ---- */
 
-        void SetGridInformation(Dictionary<Vector2Int, IPlacable> grid)
+        public void SetGridInformation(Dictionary<Vector2Int, Placement.IPlacable> grid)
         {
             _gridInformation = grid;
         }
 
-        Dictionary<Vector2Int, IPlacable> GetGridInformation()
+        public Dictionary<Vector2Int, Placement.IPlacable> GetGridInformation()
         {
             return _gridInformation;
         }
