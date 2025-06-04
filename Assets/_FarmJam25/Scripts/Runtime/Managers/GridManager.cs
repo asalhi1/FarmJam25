@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _FarmJam25.Scripts
+namespace NGJ.Runtime.Managers
 {
     public class GridManager : MonoBehaviour
     {
         public int cell_size = 1;
-        private Dictionary<Vector2Int, IPlacable> gridData = new();
+        private Dictionary<Vector2Int, Placement.IPlacable> gridData = new();
 
-        public bool canPlaceAt(Vector2Int origin, IPlacable obj)
+        public bool canPlaceAt(Vector2Int origin, Placement.IPlacable obj)
         {
             foreach (var cell in obj.occupied_cells)
             {
@@ -19,7 +19,7 @@ namespace _FarmJam25.Scripts
             return true;
         }
 
-        public void placeObject(Vector2Int origin, IPlacable obj)
+        public void placeObject(Vector2Int origin, Placement.IPlacable obj)
         {
             foreach (var cell in obj.occupied_cells)
             {

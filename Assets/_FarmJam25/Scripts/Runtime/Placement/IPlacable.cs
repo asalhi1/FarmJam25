@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _FarmJam25.Scripts
+namespace NGJ.Runtime.Placement
 {
     public interface IPlacable
     {
