@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 9189630692118891196}
   - component: {fileID: 6617323379479493696}
   - component: {fileID: 862124682687126012}
+  - component: {fileID: 6283167695695838788}
+  - component: {fileID: 4516204971529070321}
   m_Layer: 0
   m_Name: Adventurer
   m_TagString: Untagged
@@ -49,7 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _states:
   - {fileID: 11400000, guid: 6914155dfd1a45446a24aba6239d058c, type: 2}
-  _deathState: []
+  - {fileID: 11400000, guid: 2f6203de438319e42b970802725fcaf3, type: 2}
+  - {fileID: 11400000, guid: 6b4fe7dee64193a4e85ddbe8290d6568, type: 2}
+  _deathState: {fileID: 0}
   _currentState: {fileID: 0}
 --- !u!114 &6617323379479493696
 MonoBehaviour:
@@ -85,6 +89,39 @@ NavMeshAgent:
   m_BaseOffset: -0.083
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6283167695695838788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140012852355510361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7f5fe76e0aa6843b881415c013a6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 3
+  _cooldown: 0.3
+  _attackTime: 0.3
+  _recoveryTime: 0.3
+--- !u!114 &4516204971529070321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140012852355510361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7566302b8b55a4b9d8997482e3e1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 255
+  _attackRange: 2
+  _chaseRange: 50
 --- !u!1 &4010715606208079633
 GameObject:
   m_ObjectHideFlags: 0

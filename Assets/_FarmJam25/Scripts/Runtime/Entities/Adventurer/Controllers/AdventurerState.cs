@@ -6,7 +6,7 @@ namespace NJG.Runtime.Entities.Adventurer
     {
         protected AdventurerController _controller;
 
-        public bool CanBeExited { get; private set; } = true;
+        public bool CanBeExited { get; protected set; } = true;
 
         public virtual void Initialize(AdventurerController controller)
         {
