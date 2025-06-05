@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NGJ.Runtime.Player
+namespace NJG.Runtime.Player
 {
     // Get, Modify and Set functions for Cabin Health, Cabin Max Health, and each of the Resources
     public class PlayerState
