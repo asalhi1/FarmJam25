@@ -1,11 +1,11 @@
 using System;
-using NGJ.Runtime.Player;
+using NJG.Runtime.Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-namespace NGJ.Prototypes
+namespace NJG.Prototypes
 {
     public class PlayerController : MonoBehaviour
     {

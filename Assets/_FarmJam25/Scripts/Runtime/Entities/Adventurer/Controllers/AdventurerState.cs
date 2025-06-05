@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NGJ.Runtime.Entities.Adventurer
+namespace NJG.Runtime.Entities.Adventurer
 {
     public class AdventurerState : ScriptableObject
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NGJ.Runtime.Entities.Adventurer.Components
+namespace NJG.Runtime.Entities.Adventurer.Components
 {
     public interface IMoveComp
     {

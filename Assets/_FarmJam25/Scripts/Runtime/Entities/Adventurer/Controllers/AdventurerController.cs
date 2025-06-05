@@ -1,10 +1,9 @@
 using System;
-using NGJ.Runtime.Entities.Adventurer.Components;
-using NJG.Runtime;
+using NJG.Runtime.Entities.Adventurer.Components;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace NGJ.Runtime.Entities.Adventurer
+namespace NJG.Runtime.Entities.Adventurer
 {
     public class AdventurerController : MonoBehaviour, IDamagable, IDamageGiver
     {
