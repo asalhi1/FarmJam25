@@ -1,4 +1,5 @@
 using System;
+using _FarmJam25.Scripts.Runtime.Entities.Adventurer.Components;
 using NJG.Runtime.Entities.Adventurer.Components;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace NJG.Runtime.Entities.Adventurer
     public class AdventurerController : MonoBehaviour, IDamagable, IDamageGiver
     {
         #region States
-        [FoldoutGroup("States"), SerializeField]
+        [FoldoutGroup("States"), SerializeField, PropertyTooltip("Start with _state[0]")]
         private AdventurerState[] _states;
         [FoldoutGroup("States"), SerializeField]
         private AdventurerState _deathState;
@@ -20,10 +21,11 @@ namespace NJG.Runtime.Entities.Adventurer
         public IMoveComp CMove { get; protected set; }
         public IAttackComp CAttack { get; protected set; }
         public TargetSelector CTargetSelector { get; protected set; }
+        public HealthComp CHealthComp { get; protected set; }
+        #endregion
         
         public IDamagable AttackTarget { get; protected set; }
         public IDamagable ChaseTarget { get; protected set; }
-        #endregion
 
         #region Getters
         public Transform Transform => transform;
@@ -42,9 +44,10 @@ namespace NJG.Runtime.Entities.Adventurer
 
         protected virtual void Initialize()
         {
-            SetComponents();
+            InitializeComponents();
             InitializeStates();
-            CalculateState();
+            _currentState = _states[0];
+            _currentState.OnStateEnter();
         }
 
         protected virtual void InitializeStates()
@@ -56,16 +59,18 @@ namespace NJG.Runtime.Entities.Adventurer
             }
         }
 
-        protected virtual void SetComponents()
+        protected virtual void InitializeComponents()
         {
             CMove = FindComponent<IMoveComp>();
             CAttack = FindComponent<IAttackComp>();
             CTargetSelector = FindComponent<TargetSelector>();
+            CHealthComp = FindComponent<HealthComp>();
+            CHealthComp.OnDeath += OnDeath;
         }
 
         public void CalculateState()
         {
-            if(_currentState && !_currentState.CanBeExited)
+            if(!_currentState.CanBeExited)
                 return;
             STargets targetsData = CTargetSelector.GetTargets();
             AttackTarget = targetsData.AttackTarget;
@@ -89,6 +94,11 @@ namespace NJG.Runtime.Entities.Adventurer
             else 
                 Debug.LogError("There is no desired state, there must be at least one desired state");
         }
+        
+        public void Damage(float damage, Vector3 DamageDirection, IDamageGiver damageGiver = null)
+        {
+            CHealthComp.DecreaseHealth(damage);
+        }
 
         private void ChangeState(AdventurerState newState)
         {
@@ -108,9 +118,10 @@ namespace NJG.Runtime.Entities.Adventurer
             return t;
         }
 
-        public void Damage(float damage, Vector3 DamageDirection, IDamageGiver damageGiver = null)
+        private void OnDeath()
         {
-            print($"Recieve Damage: {damage}");
+            ChangeState(_deathState);
         }
+        
     }
 }

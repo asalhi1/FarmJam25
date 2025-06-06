@@ -32,7 +32,7 @@
                 if(IsInCooldown())
                     return;
 
-                _attackHandle = Timing.RunCoroutine(AttackRoutine(damagable, attackOverCallback));
+                _attackHandle = Timing.RunCoroutine(AttackRoutine(damagable, attackOverCallback), Segment.Update, gameObject);
             }
 
             public void CancellAttack()
@@ -55,7 +55,8 @@
 
                 yield return Timing.WaitForSeconds(_attackTime);
                 
-                damagable.Damage(_damage, transform.forward, null);
+                if(damagable != null && damagable.Transform)
+                    damagable.Damage(_damage, transform.forward, null);
 
                 yield return Timing.WaitForSeconds(_recoveryTime);
 

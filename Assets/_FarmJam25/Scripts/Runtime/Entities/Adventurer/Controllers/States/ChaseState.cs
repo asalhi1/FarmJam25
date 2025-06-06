@@ -15,9 +15,13 @@ namespace NJG.Runtime.Entities.Adventurer.States
 
         public override void OnLogicUpdate()
         {
-            if(_controller.ChaseTarget.Transform)
+            if (_controller.ChaseTarget.Transform)
+            {
                 if(!_controller.CMove.TryMoveTo(_controller.ChaseTarget.Transform.position))
                     _controller.CalculateState();
+            }
+            else
+                _controller.CalculateState();
         }
     }
 }

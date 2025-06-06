@@ -8,6 +8,7 @@ namespace NJG.Runtime.Entities.Adventurer.States
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            _controller.CMove.StopMovement();
             CanBeExited = true;
             TryAttack();
         }
@@ -40,7 +41,8 @@ namespace NJG.Runtime.Entities.Adventurer.States
         private void OnAttackOver()
         {
             CanBeExited = true;
-            _controller.CalculateState();
+            if(_controller.CHealthComp.IsAlive)
+                _controller.CalculateState();
         }
     }
 }
