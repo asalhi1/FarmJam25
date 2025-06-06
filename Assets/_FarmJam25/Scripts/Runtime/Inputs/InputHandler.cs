@@ -6,10 +6,11 @@ namespace NJG.Runtime
 {
     public enum EInputMod { Gameplay, UI, None}
 
-    public class InputHandler : ITickable, IInitializable, IDisposable
+    public class InputHandler : ITickable, IInitializable, IDisposable, ILateTickable
     {
         #region inputs
         public Vector2 PanInput { get; private set; }
+        public int RotateButtonInput { get; private set; }
 
         public InputState Move { get; private set; }
         public InputState Interact { get; private set; }
@@ -35,8 +36,8 @@ namespace NJG.Runtime
 
            Move = new InputState(_keys.Gameplay.Move, ref _actionResetInput);
            Interact = new InputState(_keys.Gameplay.Interact, ref _actionResetInput); 
-            
            EscGameplay = new InputState(_keys.Gameplay.Esc, ref _actionResetInput);
+           
            EscUI = new InputState(_keys.UI.Esc, ref _actionResetInput);
 
            EnableGameplayMod();
@@ -50,8 +51,19 @@ namespace NJG.Runtime
         public void Tick()
         {
             PanInput = _keys.Gameplay.Pan.ReadValue<Vector2>();
+            
+            if(_keys.Gameplay.Rotate.WasPerformedThisFrame())
+                RotateButtonInput = (int)_keys.Gameplay.Rotate.ReadValue<float>();
+            else
+                RotateButtonInput = 0;
         }
-        
+       
+
+        public void LateTick()
+        {
+            _actionResetInput.Invoke();
+        }
+
         public void EnableGameplayMod()
         {
             _keys.Gameplay.Enable();

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputState : MonoBehaviour
+public class InputState 
 {
     public bool IsPressed { get; private set; }
     public bool IsHeld { get; private set; }
