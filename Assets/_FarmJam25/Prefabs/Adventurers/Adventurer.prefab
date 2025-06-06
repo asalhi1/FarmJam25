@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6914155dfd1a45446a24aba6239d058c, type: 2}
   - {fileID: 11400000, guid: 2f6203de438319e42b970802725fcaf3, type: 2}
   - {fileID: 11400000, guid: 6b4fe7dee64193a4e85ddbe8290d6568, type: 2}
-  _deathState: {fileID: 0}
+  _deathState: {fileID: 11400000, guid: 213f77907cc92a240a77eaa7f00cae36, type: 2}
   _currentState: {fileID: 0}
 --- !u!114 &6617323379479493696
 MonoBehaviour:
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 513
   _attackRange: 2
-  _chaseRange: 50
+  _chaseRange: 10
 --- !u!114 &5299934321356255601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 2837652457621575305}
   - component: {fileID: 6679035802608589380}
   - component: {fileID: 5024351329738046154}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

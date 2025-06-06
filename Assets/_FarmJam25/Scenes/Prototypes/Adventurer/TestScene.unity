@@ -1713,7 +1713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016057137823514420, guid: ad4662a4e217204478efdc52ba56754d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4016057137823514420, guid: ad4662a4e217204478efdc52ba56754d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1821,18 +1821,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Adventurer
       objectReference: {fileID: 0}
-    - target: {fileID: 4010715606208079633, guid: 212c0f9a9e1891f45a261fcc45c9e09c, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516204971529070321, guid: 212c0f9a9e1891f45a261fcc45c9e09c, type: 3}
-      propertyPath: _chaseRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516204971529070321, guid: 212c0f9a9e1891f45a261fcc45c9e09c, type: 3}
-      propertyPath: _layerMask.m_Bits
-      value: 513
-      objectReference: {fileID: 0}
     - target: {fileID: 8834855189164116892, guid: 212c0f9a9e1891f45a261fcc45c9e09c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.2
@@ -1873,10 +1861,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9189630692118891196, guid: 212c0f9a9e1891f45a261fcc45c9e09c, type: 3}
-      propertyPath: _deathState
-      value: 
-      objectReference: {fileID: 11400000, guid: 213f77907cc92a240a77eaa7f00cae36, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
