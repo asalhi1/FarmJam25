@@ -21,6 +21,11 @@ namespace NJG.Runtime.Placement
 
         public IGridObject GridObject => _gridObject as IGridObject;
 
+        public void SetField(IGridObject gridObject)
+        {
+            _gridObject = gridObject as MonoBehaviour;
+        }
+
         private void OnFieldChanged()
         {
             if (_gridObject is IGridObject)

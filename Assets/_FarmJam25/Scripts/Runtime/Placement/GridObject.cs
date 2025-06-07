@@ -11,7 +11,7 @@ namespace NJG.Runtime.Placement
         
         public Transform Transform => transform;
         
-        public void PlaceOnMap(Vector2Int gridIndex, Vector3 cellPosition)
+        public void PlaceOnMap(Vector2Int gridIndex, Vector3 cellPosition) 
         {
             transform.position = cellPosition;
             GridIndex = gridIndex;
