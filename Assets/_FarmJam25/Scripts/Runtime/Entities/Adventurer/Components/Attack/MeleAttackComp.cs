@@ -26,11 +26,22 @@
             {
                 _cooldownTimer -= Time.deltaTime;
             }
-            
+
+            private void OnDestroy()
+            {
+                if (_attackHandle.IsRunning)
+                    Timing.KillCoroutines(_attackHandle);
+            }
+
             public void Attack(IDamagable damagable, Action attackOverCallback)
             {
                 if(IsInCooldown())
                     return;
+                if (damagable == null)
+                {
+                    Debug.LogError("damagable is null");
+                    return;
+                }
 
                 _attackHandle = Timing.RunCoroutine(AttackRoutine(damagable, attackOverCallback), Segment.Update, gameObject);
             }
@@ -52,10 +63,11 @@
             private IEnumerator<float> AttackRoutine(IDamagable damagable, Action attackOverCallback)
             {
                 _isAttacking = true;
+                Transform attackTransform = damagable.Transform;
 
                 yield return Timing.WaitForSeconds(_attackTime);
                 
-                if(damagable != null && damagable.Transform)
+                if(attackTransform)
                     damagable.Damage(_damage, transform.forward, null);
 
                 yield return Timing.WaitForSeconds(_recoveryTime);
