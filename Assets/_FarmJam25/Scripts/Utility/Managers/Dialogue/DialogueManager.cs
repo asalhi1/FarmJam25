@@ -1,30 +1,44 @@
+using System;
+using KBCore.Refs;
+using Sirenix.OdinInspector;
 using FMOD;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text dialogueText;
-    public Text speakerText;
+    [FoldoutGroup("References"), SerializeField, Anywhere]
+    private DialogueHolderSO dialogue;
 
-    public DialogueHolderSO startingLine;
-    public DialogueHolderSO currentLine;
+    public event Action<SSentence> OnSentenceChanged;
+    public event Action OnDialogueEnded;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private int currentIndex;
+
+    public void StartDialogue(DialogueHolderSO newDialogue)
     {
-        currentLine = startingLine;
-        DisplayLine(currentLine);
+        dialogue = newDialogue;
+        currentIndex = 0;
+        AdvanceDialogue();
+            
     }
 
-    public void DisplayLine(DialogueHolderSO line)
+    public void AdvanceDialogue()
     {
-        if (line == null)
+        if (dialogue == null || dialogue.Sentences.Length == 0 || currentIndex >= dialogue.Sentences.Length)
+        {
+            EndDialogue();
             return;
+        }
 
-        //speakerText.text = line.speakerName;
-        //dialogueText.text = line.dialogueText;
-
-  
+        OnSentenceChanged?.Invoke(dialogue.Sentences[currentIndex]);
+        currentIndex++;
     }
+
+    private void EndDialogue()
+    {
+        OnDialogueEnded?.Invoke();
+        dialogue = null;
+    }
+
 }
