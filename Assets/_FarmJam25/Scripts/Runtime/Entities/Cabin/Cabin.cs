@@ -1,3 +1,4 @@
+using NJG.Runtime.Managers;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Zenject;
@@ -6,18 +7,20 @@ namespace NJG.Runtime.Entities
 {
     public class Cabin : MonoBehaviour, IDamagable
     {
-        [FoldoutGroup("Health"), SerializeField] 
-        private float _health = 10;
-        
+        CabinManager _cabinManager;
         public Transform Transform => transform;
+
+        [Inject]
+        void Construct(CabinManager cabinManager)
+        {
+            _cabinManager = cabinManager;
+        }
         
         public void Damage(float damage, Vector3 DamageDirection, IDamageGiver damageGiver = null)
         {
-            if(gameObject == null)
-                return;
+            _cabinManager.ModifyCabinHealth(-damage);
             
-            _health -= damage;
-            if(_health <= 0)
+            if(!_cabinManager.IsCabinAlive)
                 Destroy(gameObject);
         }
     }
