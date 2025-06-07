@@ -9,6 +9,7 @@ public class DialogueHolderSO : ScriptableObject
 [System.Serializable]
 public struct SSentence
 {
+    [field: SerializeField] public SpeakerSO Speaker { get; private set; }
     public string speakerName;
     public string dialogueText;
     public DialogueHolderSO nextLine;
