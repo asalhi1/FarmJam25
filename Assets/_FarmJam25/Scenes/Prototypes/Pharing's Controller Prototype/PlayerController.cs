@@ -1,5 +1,4 @@
 using System;
-using NJG.Runtime.Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.AI;
@@ -13,7 +12,6 @@ namespace NJG.Prototypes
         [SerializeField] private PlayerPawn pawn;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private InputActionReference moveAction;
-        [FormerlySerializedAs("PlayerState")] [SerializeField] private PlayerState playerState;
         [SerializeField] private float raycastCorrectionDistance = 5.0f;
 
         public Camera GetCamera() { return playerCamera; }
@@ -74,11 +72,6 @@ namespace NJG.Prototypes
             pawn = null;
             pawn.OnDetach();
             return old;
-        }
-
-        public void Start()
-        {
-            playerState = new PlayerState();
         }
     }
 }

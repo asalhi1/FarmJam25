@@ -1,4 +1,4 @@
-namespace NJG.Runtime.Player
+namespace NJG.Runtime
 {
     public enum EResource
     {
