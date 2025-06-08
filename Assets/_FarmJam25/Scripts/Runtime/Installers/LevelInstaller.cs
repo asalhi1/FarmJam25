@@ -1,7 +1,8 @@
+using NJG.Runtime.Managers;
 using UnityEngine;
 using Zenject;
-using NJG.Runtime.Placement;
 using Sirenix.OdinInspector;
+using GridManager = NJG.Runtime.Placement.GridManager;
 
 namespace NJG.Runtime.Installers
 {
@@ -15,6 +16,13 @@ namespace NJG.Runtime.Installers
             Container.Bind<GridManager>()
                 .FromInstance(_gridManager)
                 .AsSingle();
+            
+            Container.Bind<InventoryManager>()
+                .AsSingle();
+
+            Container.Bind<CabinManager>()
+                .AsSingle();
+            
         }
     }
 }

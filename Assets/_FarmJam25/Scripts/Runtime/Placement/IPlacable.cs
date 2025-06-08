@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NGJ.Runtime.Placement
+namespace NJG.Runtime.Placement
 {
     public interface IPlacable
     {

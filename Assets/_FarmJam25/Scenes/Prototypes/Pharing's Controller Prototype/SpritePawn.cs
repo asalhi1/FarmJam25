@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NGJ.Prototypes
+namespace NJG.Prototypes
 {
     public class SpritePawn : PlayerPawn
     {

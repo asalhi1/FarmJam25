@@ -54,6 +54,11 @@ MonoBehaviour:
     - TinyGiantStudio.BetterInspector
     - TinyGiantStudio.BetterInspector.BetterTransform
     - UniRx
+    - UniTask
+    - UniTask.Addressables
+    - UniTask.DOTween
+    - UniTask.Linq
+    - UniTask.TextMeshPro
     - VInspector
     - Zenject
     - Zenject-IntegrationTests

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NGJ.Runtime.Placement
+namespace NJG.Runtime.Placement
 {
     public abstract class PlacableObject : MonoBehaviour, IPlacable
     {

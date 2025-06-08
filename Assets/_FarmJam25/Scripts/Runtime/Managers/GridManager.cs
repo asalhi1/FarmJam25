@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NGJ.Runtime.Managers
+namespace NJG.Runtime.Managers
 {
     public class GridManager : MonoBehaviour
     {

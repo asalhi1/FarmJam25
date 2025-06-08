@@ -1,11 +1,10 @@
 using System;
-using NGJ.Runtime.Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-namespace NGJ.Prototypes
+namespace NJG.Prototypes
 {
     public class PlayerController : MonoBehaviour
     {
@@ -13,7 +12,6 @@ namespace NGJ.Prototypes
         [SerializeField] private PlayerPawn pawn;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private InputActionReference moveAction;
-        [FormerlySerializedAs("PlayerState")] [SerializeField] private PlayerState playerState;
         [SerializeField] private float raycastCorrectionDistance = 5.0f;
 
         public Camera GetCamera() { return playerCamera; }
@@ -74,11 +72,6 @@ namespace NGJ.Prototypes
             pawn = null;
             pawn.OnDetach();
             return old;
-        }
-
-        public void Start()
-        {
-            playerState = new PlayerState();
         }
     }
 }
